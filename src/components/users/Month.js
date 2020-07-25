@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { getDOB, sortByDate, getDate } from "../helper/getDob";
+import React from "react";
 import { Consumer } from "../../context";
 
-class User extends Component {
+import { getDOB, sortByDate, getDate } from "../helper/getDob";
+
+export default class Month extends React.Component {
   state = {
     showInfo: false,
     monthsName: [
@@ -29,9 +29,8 @@ class User extends Component {
     this.setState({ showInfo: false });
   };
   render() {
-    const { firstName, lastName, dob, color } = this.props.user;
-    const { monthsName, showInfo } = this.state;
-
+    const { showInfo, monthsName } = this.state;
+    const { month } = this.props;
     return (
       <Consumer>
         {(value) => {
@@ -125,60 +124,56 @@ class User extends Component {
               ));
             }
           };
-
           return (
-            <tr>
-              <td>
-                {firstName} {lastName}
-              </td>
-              <td>
-                <span
+            <React.Fragment>
+              <ul className="mb-3 " style={{ display: "flex" }}>
+                <li
                   style={{
-                    padding: "3px 8px",
-                    backgroundColor: color,
+                    backgroundColor: month.color,
+                    padding: "2px 8px",
+                    borderRadius: "3px",
                     cursor: "pointer",
-                    borderRadius: "4px",
+                    marginBottom: "3px",
+                    textAlign: "center",
                     color: "#fff",
-                    position: "relative",
+                    marginRight: "4px",
                   }}
                   onMouseEnter={this.onMouseEnter}
                   onMouseLeave={this.onMouseLeave}
                 >
-                  {monthsName[getDOB(dob)]}
-                </span>
-                {showInfo ? (
-                  <ul
-                    style={{
-                      position: "fixed",
-                      top: "120px",
-                      right: "50%",
-                      backgroundColor: "grey",
-                      color: "#fff",
-                      padding: "10px",
-                      borderRadius: "10px",
-                    }}
-                  >
-                    <span
+                  {month.name}
+                  {showInfo ? (
+                    <ul
                       style={{
-                        textDecoration: "underline",
-                        textTransform: "uppercase",
+                        position: "absolute",
+                        top: "25px",
+                        left: "30%",
+                        width: "300px",
+                        zIndex: "1",
+                        backgroundColor: "grey",
+                        color: "#fff",
+                        padding: "10px",
+                        borderRadius: "10px",
+                        listStyle: "none",
                       }}
                     >
-                      {monthsName[getDOB(dob)]}
-                    </span>
-                    {usersList(getDOB(dob))}
-                  </ul>
-                ) : null}
-              </td>
-            </tr>
+                      <li
+                        style={{
+                          textDecoration: "underline",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        {monthsName[month.id]}
+                      </li>
+                      {usersList(month.id)}
+                    </ul>
+                  ) : null}
+                </li>
+              </ul>
+            </React.Fragment>
           );
         }}
       </Consumer>
     );
   }
 }
-
-User.propTypes = {
-  user: PropTypes.object.isRequired,
-};
-export default User;

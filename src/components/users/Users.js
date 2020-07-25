@@ -22,7 +22,10 @@ class Users extends Component {
           giveColor(value.october);
           giveColor(value.december);
           return (
-            <div className="card card-body mb-3">
+            <div
+              className="card card-body mb-3"
+              style={{ position: "relative", zIndex: "0" }}
+            >
               <table className="table table-striped">
                 <thead className="thead">
                   <tr>

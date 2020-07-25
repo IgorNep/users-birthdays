@@ -18,6 +18,20 @@ export class Provider extends Component {
     october: [],
     november: [],
     december: [],
+    months: [
+      { name: "january", id: 0 },
+      { name: "february", id: 1 },
+      { name: "march", id: 2 },
+      { name: "april", id: 3 },
+      { name: "may", id: 4 },
+      { name: "june", id: 5 },
+      { name: "july", id: 6 },
+      { name: "august", id: 7 },
+      { name: "september", id: 8 },
+      { name: "october", id: 9 },
+      { name: "november", id: 10 },
+      { name: "december", id: 11 },
+    ],
   };
   componentDidMount() {
     fetch("https://yalantis-react-school-api.yalantis.com/api/task0/users")
